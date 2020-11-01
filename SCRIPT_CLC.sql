@@ -998,6 +998,14 @@ alter table ENCABEZADO_CAPACITACION add CONSTRAINT fk_curso_encabezado_capacitac
 alter table COMPETENCIA_DESARROLLO add CONSTRAINT fk_empleado_encabezado_desarrollo FOREIGN KEY (fk_id_empleado_encabezado_desarrollo) REFERENCES EMPLEADO (pk_id_empleado) ON DELETE RESTRICT ON UPDATE CASCADE;
 alter table COMPETENCIA_DESARROLLO add CONSTRAINT fk_competencia_encabezado_desarrollo FOREIGN KEY (fk_id_competencia_encabezado_desarrollo) REFERENCES TIPO_COMPETENCIA (pk_id_competencia) ON DELETE RESTRICT on UPDATE CASCADE;
 
+ALTER TABLE CURSO DROP `capacitador_curso`;
+ALTER TABLE CURSO ADD `fk_id_empleado_curso` INT(11) NULL DEFAULT NULL AFTER `nombre_curso`; 
+ALTER TABLE CURSO ADD `detalle_curso` VARCHAR(128) NULL DEFAULT NULL AFTER `fk_id_empleado_curso`; 
+alter table CURSO ADD CONSTRAINT fk_empleado_curso FOREIGN KEY (fk_id_empleado_curso) REFERENCES EMPLEADO (pk_id_empleado) on delete restrict on update cascade;
+
+ALTER TABLE ENCABEZADO_CAPACITACION ADD `horas_encabezado_capacitacion` INT(2) NOT NULL AFTER `fk_id_curso_encabezado_capacitacion`; 
+ALTER TABLE ENCABEZADO_CAPACITACION DROP `nombre_encabezado_capacitacion`;
+
 alter table RECLUTAMIENTO add CONSTRAINT fk_empleado_reclutamiento FOREIGN KEY (fk_id_empleado_reclutamiento) REFERENCES EMPLEADO (pk_id_empleado) ON DELETE RESTRICT ON UPDATE CASCADE;
 alter table RECLUTAMIENTO add CONSTRAINT fk_formacion_academica_reclutamiento FOREIGN KEY (fk_id_formacion_academica_reclutamiento) REFERENCES FORMACION_ACADEMICA (pk_id_formacion_academica) ON DELETE RESTRICT ON UPDATE CASCADE;
 alter table RECLUTAMIENTO add CONSTRAINT fk_genero_reclutamiento FOREIGN KEY (fk_id_genero_reclutamiento) REFERENCES GENERO (pk_id_genero) ON DELETE RESTRICT ON UPDATE CASCADE;
